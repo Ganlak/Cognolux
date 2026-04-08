@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognolux AI — Illuminating Intelligence | Enterprise AI Engineering</title>
+<meta name="description" content="Production-grade AI engineering for enterprises. RAG pipelines, Agentic AI, Document Intelligence. Live deployments with 99.9% uptime. Chennai, India.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0f2137;
+  --accent: #d97738;
+  --accent-light: #f0a868;
+  --teal: #0891b2;
+  --bg-white: #ffffff;
+  --bg-light: #f7f8fc;
+  --bg-section: #f0f2f8;
+  --text-dark: #0f2137;
+  --text-body: #4a5568;
+  --text-light: #718096;
+  --border: #e2e8f0;
+  --gradient-1: linear-gradient(135deg, #0f2137 0%, #1a365d 50%, #0891b2 100%);
+  --gradient-2: linear-gradient(135deg, #d97738 0%, #f0a868 100%);
+  --shadow-sm: 0 1px 3px rgba(15,33,55,0.08);
+  --shadow-md: 0 4px 20px rgba(15,33,55,0.1);
+  --shadow-lg: 0 10px 40px rgba(15,33,55,0.12);
+  --radius: 16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-body); background: var(--bg-white); line-height: 1.7; }
+h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; color: var(--text-dark); line-height: 1.3; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes countUp { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+@keyframes slideRight { from { opacity:0; transform:translateX(-30px); } to { opacity:1; transform:translateX(0); } }
+@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+@keyframes gradientMove { 0% { background-position:0% 50%; } 50% { background-position:100% 50%; } 100% { background-position:0% 50%; } }
+
+.animate { opacity:0; transform:translateY(30px); transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.animate.visible { opacity:1; transform:translateY(0); }
+.animate-delay-1 { transition-delay: 0.1s; }
+.animate-delay-2 { transition-delay: 0.2s; }
+.animate-delay-3 { transition-delay: 0.3s; }
+.animate-delay-4 { transition-delay: 0.4s; }
+.animate-delay-5 { transition-delay: 0.5s; }
+
+/* NAVIGATION */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+}
+nav.scrolled { box-shadow: var(--shadow-md); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 72px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-logo-icon {
+  width: 42px; height: 42px;
+  background: var(--gradient-1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 800; font-size: 18px;
+  font-family: 'Sora', sans-serif;
+}
+.nav-logo-text { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 20px; color: var(--primary); }
+.nav-logo-text span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-body); transition: color 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  background: var(--gradient-2); color: white;
+  padding: 10px 24px; border-radius: 10px; font-weight: 600; font-size: 14px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none; cursor: pointer;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(217,119,56,0.35); }
+
+/* HERO */
+.hero {
+  padding: 140px 0 100px;
+  background: linear-gradient(170deg, #f7f8fc 0%, #ffffff 40%, #fef7f0 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; right: -20%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(217,119,56,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -30%; left: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(8,145,178,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index:1; max-width: 800px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(8,145,178,0.08);
+  border: 1px solid rgba(8,145,178,0.15);
+  color: var(--teal); font-size: 13px; font-weight: 600;
+  padding: 8px 18px; border-radius: 50px; margin-bottom: 28px;
+  animation: fadeIn 0.8s ease;
+}
+.hero-badge::before { content: ''; width:8px; height:8px; background:var(--teal); border-radius:50%; animation: pulse 2s infinite; }
+.hero h1 {
+  font-size: 52px; font-weight: 800; line-height: 1.15;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s ease;
+}
+.hero h1 .highlight {
+  background: var(--gradient-2);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 19px; line-height: 1.7; color: var(--text-body);
+  margin-bottom: 36px; max-width: 650px;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+.hero-buttons {
+  display: flex; gap: 16px; margin-bottom: 48px;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+.btn-primary {
+  background: var(--gradient-2); color: white;
+  padding: 16px 36px; border-radius: 12px; font-weight: 700; font-size: 15px;
+  transition: all 0.3s; border: none; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(217,119,56,0.3);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(217,119,56,0.4); }
+.btn-outline {
+  background: transparent; color: var(--primary);
+  padding: 16px 36px; border-radius: 12px; font-weight: 700; font-size: 15px;
+  border: 2px solid var(--border); cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+
+.hero-trust {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-light);
+}
+.trust-item::before {
+  content: '✓'; width: 22px; height: 22px;
+  background: rgba(8,145,178,0.1); color: var(--teal);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+}
+
+/* IMPACT METRICS */
+.metrics {
+  padding: 90px 0;
+  background: var(--bg-white);
+}
+.section-label {
+  display: inline-block;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.section-title {
+  font-size: 38px; font-weight: 800; margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 17px; color: var(--text-body); max-width: 600px; margin-bottom: 50px;
+}
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.metric-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 36px 28px;
+  text-align: center; transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.metric-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height: 4px;
+  background: var(--gradient-2); opacity:0;
+  transition: opacity 0.4s;
+}
+.metric-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.metric-card:hover::before { opacity: 1; }
+.metric-number {
+  font-family: 'Sora', sans-serif;
+  font-size: 48px; font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.metric-label { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+.metric-desc { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+
+/* SERVICES */
+.services { padding: 90px 0; background: var(--bg-light); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.service-card {
+  background: var(--bg-white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 36px 30px;
+  transition: all 0.4s; position: relative;
+}
+.service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(217,119,56,0.3); }
+.service-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, rgba(217,119,56,0.1), rgba(8,145,178,0.1));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px;
+}
+.service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
+.service-card p { font-size: 14px; color: var(--text-body); line-height: 1.7; margin-bottom: 16px; }
+.service-impact {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--teal);
+  background: rgba(8,145,178,0.08); padding: 6px 14px; border-radius: 8px;
+}
+
+/* INDUSTRIES */
+.industries { padding: 90px 0; background: var(--bg-white); }
+.industries-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.industry-card {
+  background: var(--bg-light); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px 18px; text-align: center;
+  transition: all 0.4s;
+}
+.industry-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(217,119,56,0.3); }
+.industry-icon { font-size: 32px; margin-bottom: 12px; }
+.industry-card h4 { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+.industry-card p { font-size: 11px; color: var(--text-light); line-height: 1.5; }
+
+/* PROJECT SPOTLIGHT */
+.spotlight { padding: 90px 0; background: var(--bg-light); }
+.spotlight-card {
+  background: var(--bg-white);
+  border: 2px solid transparent;
+  border-image: var(--gradient-2) 1;
+  border-radius: 0;
+  padding: 50px;
+  position: relative;
+}
+.spotlight-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(22,163,74,0.08); color: #16a34a;
+  font-size: 13px; font-weight: 700; padding: 6px 16px;
+  border-radius: 50px; margin-bottom: 20px;
+}
+.spotlight-badge::before { content:''; width:8px; height:8px; background:#16a34a; border-radius:50%; animation: pulse 2s infinite; }
+.spotlight-card h3 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.spotlight-client { font-size: 16px; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
+.spotlight-desc { font-size: 16px; color: var(--text-body); margin-bottom: 30px; max-width: 700px; }
+.spotlight-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;
+}
+.spot-metric {
+  background: var(--bg-light); border-radius: 12px; padding: 20px; text-align: center;
+}
+.spot-metric .num { font-family: 'Sora'; font-size: 28px; font-weight: 800; color: var(--primary); }
+.spot-metric .label { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+/* AI ROADMAP */
+.roadmap { padding: 90px 0; background: var(--bg-white); }
+.roadmap-timeline { position: relative; max-width: 900px; margin: 0 auto; }
+.roadmap-timeline::before {
+  content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(180deg, var(--accent), var(--teal), #a78bfa, #e2e8f0);
+  border-radius: 3px;
+}
+.roadmap-phase {
+  position: relative; padding-left: 80px; margin-bottom: 50px;
+}
+.phase-dot {
+  position: absolute; left: 16px; top: 8px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; z-index: 2;
+}
+.phase-dot.green { background: #dcfce7; border: 3px solid #16a34a; }
+.phase-dot.orange { background: #fef3c7; border: 3px solid var(--accent); }
+.phase-dot.blue { background: #dbeafe; border: 3px solid #3b82f6; }
+.phase-dot.purple { background: #ede9fe; border: 3px solid #8b5cf6; }
+.phase-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.phase-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 6px;
+}
+.phase-tag.green { background: #dcfce7; color: #16a34a; }
+.phase-tag.orange { background: #fef3c7; color: #b45309; }
+.phase-tag.blue { background: #dbeafe; color: #2563eb; }
+.phase-tag.purple { background: #ede9fe; color: #7c3aed; }
+.phase-title { font-size: 22px; font-weight: 800; }
+.phase-year { font-size: 14px; color: var(--text-light); font-weight: 500; }
+.phase-body {
+  background: var(--bg-light); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; margin-top: 12px;
+}
+.phase-items { list-style: none; }
+.phase-items li {
+  font-size: 14px; color: var(--text-body); padding: 6px 0;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.phase-items li::before { content: '→'; color: var(--accent); font-weight: 700; margin-top: 1px; }
+.phase-impact {
+  margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--teal);
+  background: rgba(8,145,178,0.06); padding: 10px 16px; border-radius: 10px;
+}
+.phase-status {
+  margin-top: 10px; font-size: 13px; font-weight: 700;
+}
+
+/* HOW WE WORK */
+.process { padding: 90px 0; background: var(--bg-light); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+}
+.process-step {
+  text-align: center; padding: 30px 16px;
+  position: relative;
+}
+.step-num {
+  width: 48px; height: 48px; margin: 0 auto 16px;
+  background: var(--gradient-2); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora'; font-weight: 800; font-size: 18px;
+}
+.process-step h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.process-step p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+
+/* ABOUT */
+.about { padding: 90px 0; background: var(--bg-white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-content h3 { font-size: 28px; margin-bottom: 6px; }
+.about-role { color: var(--accent); font-weight: 600; font-size: 16px; margin-bottom: 20px; }
+.about-content p { font-size: 15px; margin-bottom: 16px; }
+.about-highlights { list-style: none; margin-top: 20px; }
+.about-highlights li {
+  padding: 8px 0; font-size: 14px; display: flex; align-items: center; gap: 10px;
+}
+.about-highlights li::before { content: '✓'; color: var(--teal); font-weight: 800; background: rgba(8,145,178,0.1); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.value-card {
+  background: var(--bg-light); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+}
+.value-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+.value-card p { font-size: 13px; color: var(--text-light); }
+
+/* CTA */
+.cta-section {
+  padding: 100px 0;
+  background: var(--gradient-1);
+  text-align: center; color: white;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content:'';
+  position: absolute; top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(217,119,56,0.15) 0%, transparent 70%);
+}
+.cta-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; color: white; position: relative; z-index: 1; }
+.cta-section p { font-size: 18px; opacity: 0.85; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
+.cta-section .btn-primary { font-size: 17px; padding: 18px 44px; position: relative; z-index: 1; }
+.cta-subtext { font-size: 14px; opacity: 0.6; margin-top: 16px; position: relative; z-index: 1; }
+
+/* CONTACT */
+.contact { padding: 90px 0; background: var(--bg-light); }
+.contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; }
+.contact-form { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 16px; border: 1px solid var(--border);
+  border-radius: 10px; font-family: 'Plus Jakarta Sans'; font-size: 14px;
+  transition: border-color 0.3s; background: var(--bg-light);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--accent);
+}
+.form-group textarea { min-height: 120px; resize: vertical; }
+.form-submit {
+  background: var(--gradient-2); color: white; border: none;
+  padding: 14px 36px; border-radius: 10px; font-weight: 700; font-size: 15px;
+  cursor: pointer; transition: all 0.3s; width: 100%;
+}
+.form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(217,119,56,0.35); }
+.contact-info { padding-top: 20px; }
+.contact-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.info-item {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px;
+}
+.info-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: rgba(217,119,56,0.08); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.info-item h4 { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+.info-item p { font-size: 14px; color: var(--text-body); }
+.response-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(22,163,74,0.08); color: #16a34a;
+  font-size: 13px; font-weight: 600; padding: 8px 16px;
+  border-radius: 10px; margin-top: 20px;
+}
+
+/* FOOTER */
+footer {
+  background: var(--primary); color: white; padding: 60px 0 30px;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand p { font-size: 14px; opacity: 0.6; margin-top: 12px; line-height: 1.7; }
+.footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; opacity: 0.9; }
+.footer-col a { display: block; font-size: 13px; opacity: 0.6; margin-bottom: 10px; transition: opacity 0.3s; }
+.footer-col a:hover { opacity: 1; color: var(--accent-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 24px; display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { font-size: 13px; opacity: 0.5; }
+.footer-bottom span { font-size: 13px; opacity: 0.4; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 16px; }
+  .metrics-grid, .services-grid { grid-template-columns: 1fr; }
+  .industries-grid { grid-template-columns: repeat(2, 1fr); }
+  .spotlight-metrics { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: 1fr; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero-buttons { flex-direction: column; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-trust { flex-direction: column; gap: 12px; }
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="data:image/png;base64,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" alt="Cognolux AI" style="height:40px; border-radius:8px;">
+      <div class="nav-logo-text">Cognolux<span>.AI</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#results">Results</a>
+      <a href="#roadmap">AI Roadmap</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Book Strategy Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">Live AI Systems in Production</div>
+      <h1>Your Competitors Are Already Deploying AI. <span class="highlight">Are You?</span></h1>
+      <p>We build production AI systems that cut operational costs by 40%, accelerate decisions by 85%, and triple team output — without adding headcount. Trusted by government institutions with live systems running 24/7.</p>
+      <div class="hero-buttons">
+        <a href="#results" class="btn-primary">See Business Results</a>
+        <a href="#contact" class="btn-outline">Schedule Strategy Call</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">Production-Grade</div>
+        <div class="trust-item">Zero Hallucination</div>
+        <div class="trust-item">99.9% Uptime</div>
+        <div class="trust-item">End-to-End Delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS IMPACT METRICS -->
+<section class="metrics" id="results">
+  <div class="container">
+    <div class="section-label animate">Proven Results</div>
+    <h2 class="section-title animate">Measurable Results, Not Just Promises</h2>
+    <p class="section-subtitle animate">These aren't projections. These are results from our live production deployment serving real users every day.</p>
+    <div class="metrics-grid">
+      <div class="metric-card animate animate-delay-1">
+        <div class="metric-number">85%</div>
+        <div class="metric-label">Faster Processing</div>
+        <div class="metric-desc">From 4-5 hours to under 45 seconds per query</div>
+      </div>
+      <div class="metric-card animate animate-delay-2">
+        <div class="metric-number">95%+</div>
+        <div class="metric-label">Accuracy in Production</div>
+        <div class="metric-desc">Near-zero hallucination with verifiable citations</div>
+      </div>
+      <div class="metric-card animate animate-delay-3">
+        <div class="metric-number">3x</div>
+        <div class="metric-label">Throughput Increase</div>
+        <div class="metric-desc">Triple the output without adding headcount</div>
+      </div>
+      <div class="metric-card animate animate-delay-4">
+        <div class="metric-number">40%</div>
+        <div class="metric-label">Cost Savings</div>
+        <div class="metric-desc">Reduced operational costs on research & documentation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-label animate">What We Build</div>
+    <h2 class="section-title animate">AI Solutions That Drive Revenue</h2>
+    <p class="section-subtitle animate">Every solution is built for production — not PowerPoint slides.</p>
+    <div class="services-grid">
+      <div class="service-card animate animate-delay-1">
+        <div class="service-icon">🧠</div>
+        <h3>RAG & GenAI Systems</h3>
+        <p>Enterprise knowledge retrieval with hallucination-free responses from your proprietary data. Your team gets instant, accurate answers instead of hours of searching.</p>
+        <div class="service-impact">↑ 85% faster information retrieval</div>
+      </div>
+      <div class="service-card animate animate-delay-2">
+        <div class="service-icon">🤖</div>
+        <h3>Agentic AI & Multi-Agent Systems</h3>
+        <p>Autonomous AI agents that plan, reason, and execute complex multi-step business workflows — reducing human coordination by 70%.</p>
+        <div class="service-impact">↑ 3x throughput, zero human error</div>
+      </div>
+      <div class="service-card animate animate-delay-3">
+        <div class="service-icon">📄</div>
+        <h3>Document Intelligence & OCR</h3>
+        <p>AI that reads, extracts, classifies, and summarizes thousands of documents automatically. Transform paper-heavy operations overnight.</p>
+        <div class="service-impact">↑ 90% faster document processing</div>
+      </div>
+      <div class="service-card animate animate-delay-4">
+        <div class="service-icon">💬</div>
+        <h3>AI Chatbots & Virtual Assistants</h3>
+        <p>Intelligent conversational AI trained on YOUR data — answers questions accurately, 24/7, in any language. Reduce support costs by 60%.</p>
+        <div class="service-impact">↑ 60% reduction in support tickets</div>
+      </div>
+      <div class="service-card animate animate-delay-5">
+        <div class="service-icon">⚙️</div>
+        <h3>IT Infrastructure Automation</h3>
+        <p>AI-powered monitoring that predicts issues before they happen and auto-resolves routine incidents. Your IT team builds instead of firefighting.</p>
+        <div class="service-impact">↑ 50% fewer incidents</div>
+      </div>
+      <div class="service-card animate animate-delay-1">
+        <div class="service-icon">🔧</div>
+        <h3>Application Support & Maintenance</h3>
+        <p>Dedicated support with AI-assisted debugging, monitoring, and continuous improvement. Predictable monthly costs, 99.9% uptime guarantee.</p>
+        <div class="service-impact">↑ 99.9% uptime guaranteed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <div class="container">
+    <div class="section-label animate">Industries We Serve</div>
+    <h2 class="section-title animate">AI Solutions Across Verticals</h2>
+    <p class="section-subtitle animate">Deep domain expertise where it matters most.</p>
+    <div class="industries-grid">
+      <div class="industry-card animate animate-delay-1">
+        <div class="industry-icon">⚖️</div>
+        <h4>LegalTech</h4>
+        <p>Legal research, case analysis, document drafting</p>
+      </div>
+      <div class="industry-card animate animate-delay-2">
+        <div class="industry-icon">🏥</div>
+        <h4>HealthTech</h4>
+        <p>Clinical docs, patient data, billing automation</p>
+      </div>
+      <div class="industry-card animate animate-delay-3">
+        <div class="industry-icon">🏦</div>
+        <h4>FinTech</h4>
+        <p>Compliance, fraud detection, risk analysis</p>
+      </div>
+      <div class="industry-card animate animate-delay-4">
+        <div class="industry-icon">🏭</div>
+        <h4>Manufacturing</h4>
+        <p>Predictive maintenance, quality control AI</p>
+      </div>
+      <div class="industry-card animate animate-delay-5">
+        <div class="industry-icon">💻</div>
+        <h4>Enterprise IT</h4>
+        <p>Infra automation, intelligent monitoring</p>
+      </div>
+      <div class="industry-card animate animate-delay-1">
+        <div class="industry-icon">🏛️</div>
+        <h4>Government</h4>
+        <p>Document digitization, citizen services AI</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT SPOTLIGHT -->
+<section class="spotlight" id="casestudy">
+  <div class="container">
+    <div class="section-label animate">Live in Production</div>
+    <h2 class="section-title animate">Not a Demo. Not a PoC. A Live System.</h2>
+    <div class="spotlight-card animate">
+      <div class="spotlight-badge">🟢 Live System — Running 24/7</div>
+      <h3>AI-CCMS: Court Case Management System</h3>
+      <div class="spotlight-client">Deployed for Manipur High Court, India</div>
+      <p class="spotlight-desc">A production AI system serving legal professionals daily — processing 10,000+ legal documents, delivering instant research results, and generating accurate legal drafts with verifiable citations.</p>
+      <div class="spotlight-metrics">
+        <div class="spot-metric">
+          <div class="num">10,000+</div>
+          <div class="label">Documents Processed</div>
+        </div>
+        <div class="spot-metric">
+          <div class="num">45 sec</div>
+          <div class="label">Query Response Time</div>
+        </div>
+        <div class="spot-metric">
+          <div class="num">95%+</div>
+          <div class="label">Citation Accuracy</div>
+        </div>
+        <div class="spot-metric">
+          <div class="num">99.9%</div>
+          <div class="label">System Uptime</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary">Want Similar Results? Let's Talk →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AI ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="container">
+    <div class="section-label animate">AI Technology Roadmap</div>
+    <h2 class="section-title animate">Where AI Is Heading — And How We Keep You Ahead</h2>
+    <p class="section-subtitle animate">Most companies are stuck in Phase 1. The winners are building Phase 2.</p>
+    <div class="roadmap-timeline">
+      <!-- Phase 1 -->
+      <div class="roadmap-phase animate">
+        <div class="phase-dot green">✓</div>
+        <div class="phase-header">
+          <span class="phase-tag green">LIVE NOW</span>
+          <span class="phase-year">2025-2026</span>
+        </div>
+        <div class="phase-title">Foundation AI</div>
+        <div class="phase-body">
+          <ul class="phase-items">
+            <li>RAG Pipelines — Accurate, hallucination-free AI from your company data</li>
+            <li>LLM Integration — GPT-4, Claude, Gemini embedded into enterprise workflows</li>
+            <li>AI Chatbots & Copilots — 24/7 intelligent assistants for support & productivity</li>
+            <li>Document AI & OCR — Automated document extraction and analysis at scale</li>
+          </ul>
+          <div class="phase-impact">📊 Companies see 40-85% reduction in processing time and 30-50% cost savings</div>
+          <div class="phase-status" style="color:#16a34a;">✅ Cognolux AI: Delivering in production today</div>
+        </div>
+      </div>
+      <!-- Phase 2 -->
+      <div class="roadmap-phase animate">
+        <div class="phase-dot orange">⚡</div>
+        <div class="phase-header">
+          <span class="phase-tag orange">BUILDING NOW</span>
+          <span class="phase-year">2026-2027</span>
+        </div>
+        <div class="phase-title">Agentic AI</div>
+        <div class="phase-body">
+          <ul class="phase-items">
+            <li>Multi-Agent Systems — Autonomous AI that plans, reasons, and executes complex tasks</li>
+            <li>AI Workflow Orchestration — Multiple agents collaborating on end-to-end processes</li>
+            <li>Tool Use & API Integration — AI agents that autonomously interact with enterprise systems</li>
+            <li>Human-in-the-Loop — AI handles 90%, escalates 10% for human approval</li>
+          </ul>
+          <div class="phase-impact">📊 Projected to automate 60-80% of routine knowledge work, creating $4.1T in enterprise value</div>
+          <div class="phase-status" style="color:var(--accent);">🔨 Cognolux AI: Building and deploying now — early adopters gain 12-18 month advantage</div>
+        </div>
+      </div>
+      <!-- Phase 3 -->
+      <div class="roadmap-phase animate">
+        <div class="phase-dot blue">🎯</div>
+        <div class="phase-header">
+          <span class="phase-tag blue">NEXT WAVE</span>
+          <span class="phase-year">2027-2028</span>
+        </div>
+        <div class="phase-title">Enterprise AI at Scale</div>
+        <div class="phase-body">
+          <ul class="phase-items">
+            <li>Multi-Modal AI — Text, images, audio, video processed together</li>
+            <li>Vertical AI Platforms — Industry-specific AI for Legal, Healthcare, Finance</li>
+            <li>Edge AI — Running AI locally for privacy, speed, and compliance</li>
+            <li>Self-Improving Systems — AI that gets better from production data automatically</li>
+          </ul>
+          <div class="phase-impact">📊 Enterprises with scaled AI outperform peers by 3-5x in efficiency and revenue</div>
+          <div class="phase-status" style="color:#3b82f6;">🎯 Cognolux AI: Researching and prototyping — positioning clients for the next wave</div>
+        </div>
+      </div>
+      <!-- Phase 4 -->
+      <div class="roadmap-phase animate">
+        <div class="phase-dot purple">🔮</div>
+        <div class="phase-header">
+          <span class="phase-tag purple">VISION</span>
+          <span class="phase-year">2028+</span>
+        </div>
+        <div class="phase-title">Autonomous Enterprise</div>
+        <div class="phase-body">
+          <ul class="phase-items">
+            <li>Digital Workforce — AI agents as full-time digital employees</li>
+            <li>Cross-Enterprise AI Networks — AI systems collaborating across organizations</li>
+            <li>Predictive Business Intelligence — AI that predicts and recommends optimal decisions</li>
+            <li>Zero-Code AI Deployment — Any team deploys AI without technical expertise</li>
+          </ul>
+          <div class="phase-impact">📊 By 2030, autonomous AI will manage 45% of enterprise operations</div>
+          <div class="phase-status" style="color:#7c3aed;">🔮 Cognolux AI: Shaping our vision — building the foundation today</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:50px;" class="animate">
+      <h3 style="font-size:24px; margin-bottom:12px;">Where is YOUR business on this roadmap?</h3>
+      <p style="color:var(--text-body); margin-bottom:24px;">Don't get left behind. Let us assess your AI readiness.</p>
+      <a href="#contact" class="btn-primary">Book Free AI Readiness Assessment</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="process">
+  <div class="container">
+    <div class="section-label animate" style="text-align:center;">Our Process</div>
+    <h2 class="section-title animate" style="text-align:center;">From Idea to Production in Weeks, Not Months</h2>
+    <p class="section-subtitle animate" style="text-align:center; margin: 0 auto 50px;">You see progress every week — not just status updates.</p>
+    <div class="process-steps">
+      <div class="process-step animate animate-delay-1">
+        <div class="step-num">1</div>
+        <h4>Discovery</h4>
+        <p>We understand your business problem, data landscape, and success metrics</p>
+      </div>
+      <div class="process-step animate animate-delay-2">
+        <div class="step-num">2</div>
+        <h4>Architecture</h4>
+        <p>Design the AI system — models, pipelines, integrations, infrastructure</p>
+      </div>
+      <div class="process-step animate animate-delay-3">
+        <div class="step-num">3</div>
+        <h4>Build</h4>
+        <p>Rapid development with weekly demos. You see progress, not reports</p>
+      </div>
+      <div class="process-step animate animate-delay-4">
+        <div class="step-num">4</div>
+        <h4>Deploy</h4>
+        <p>Production deployment with enterprise security, monitoring, reliability</p>
+      </div>
+      <div class="process-step animate animate-delay-5">
+        <div class="step-num">5</div>
+        <h4>Optimize</h4>
+        <p>Continuous improvement based on real-world performance data</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content animate">
+        <div class="section-label">About</div>
+        <h3>Ganesh Jagadeesan</h3>
+        <div class="about-role">Founder & AI Architect</div>
+        <p>14+ years in enterprise IT. I don't build impressive demos — I build AI systems that run 24/7 in production with real users depending on them every day.</p>
+        <p>Our mission: Making enterprise-grade AI accessible, reliable, and transformative. Every organization deserves AI that works in production — not just in PowerPoint slides.</p>
+        <ul class="about-highlights">
+          <li>Built AI-CCMS for Manipur High Court — live in production</li>
+          <li>Expert in LangChain, LangGraph, Azure OpenAI</li>
+          <li>99.9% uptime across all production deployments</li>
+          <li>End-to-end delivery from architecture to deployment</li>
+        </ul>
+      </div>
+      <div class="animate animate-delay-2">
+        <h3 style="font-size:20px; margin-bottom:20px;">Why Choose Us Over...</h3>
+        <div class="values-grid">
+          <div class="value-card">
+            <h4>vs Big Consulting Firms</h4>
+            <p>10x faster delivery, 5x lower cost, same enterprise quality</p>
+          </div>
+          <div class="value-card">
+            <h4>vs Freelancers</h4>
+            <p>Production-grade architecture, not weekend projects. 99.9% uptime guarantee.</p>
+          </div>
+          <div class="value-card">
+            <h4>vs Building In-House</h4>
+            <p>Deploy in weeks, not months. No hiring risk. No training time.</p>
+          </div>
+          <div class="value-card">
+            <h4>vs Off-the-Shelf AI</h4>
+            <p>Custom-built for YOUR data, YOUR workflows, YOUR business problems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="animate">Every Week You Wait, Your Competitors Are Deploying AI</h2>
+    <p class="animate animate-delay-1">Let's build yours. No pitch. No slides. Just a focused technical conversation about your AI opportunity.</p>
+    <a href="#contact" class="btn-primary animate animate-delay-2">Book a Free 30-Minute Strategy Call</a>
+    <div class="cta-subtext animate animate-delay-3">No commitment required. Let's just talk about what's possible.</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label animate">Get In Touch</div>
+    <h2 class="section-title animate">Let's Build Something Extraordinary</h2>
+    <p class="section-subtitle animate">Whether you need a production AI system or just want to explore what's possible — we're here.</p>
+    <div class="contact-grid">
+      <div class="contact-form animate">
+        <form action="https://formspree.io/f/xlgovbdk" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name *</label>
+              <input type="text" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label>Work Email *</label>
+              <input type="email" name="email" placeholder="you@company.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" name="company" placeholder="Company name">
+            </div>
+            <div class="form-group">
+              <label>Project Type</label>
+              <select name="project_type">
+                <option>Select a project type</option>
+                <option>RAG & GenAI System</option>
+                <option>Agentic AI / Multi-Agent</option>
+                <option>Document Intelligence</option>
+                <option>AI Chatbot</option>
+                <option>IT Infrastructure Automation</option>
+                <option>App Support & Maintenance</option>
+                <option>AI Strategy Consultation</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Budget Range</label>
+            <select name="budget">
+              <option>Select budget range</option>
+              <option>Under $5,000</option>
+              <option>$5,000 — $15,000</option>
+              <option>$15,000 — $50,000</option>
+              <option>$50,000+</option>
+              <option>Not sure yet — let's discuss</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us about your project</label>
+            <textarea name="message" placeholder="Describe your business challenge and what you'd like AI to solve..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+      </div>
+      <div class="contact-info animate animate-delay-2">
+        <h3>Reach Out Directly</h3>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p>+91 9884517404</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>ganesh@cognolux.ai</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <h4>Location</h4>
+            <p>Chennai, Tamil Nadu, India</p>
+          </div>
+        </div>
+        <div class="response-badge">⚡ We respond within 24 hours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="data:image/png;base64,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" alt="Cognolux AI" style="height:38px; border-radius:8px;">
+          <div style="font-family:'Sora'; font-weight:700; font-size:20px; color:white;">Cognolux<span style="color:var(--accent-light);">.AI</span></div>
+        </div>
+        <p>Illuminating Intelligence. Production-grade AI engineering for enterprises that demand results, not promises.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">RAG & GenAI</a>
+        <a href="#services">Agentic AI</a>
+        <a href="#services">Document Intelligence</a>
+        <a href="#services">AI Chatbots</a>
+        <a href="#services">IT Automation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About Us</a>
+        <a href="#casestudy">Case Study</a>
+        <a href="#roadmap">AI Roadmap</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:ganesh@cognolux.ai">ganesh@cognolux.ai</a>
+        <a href="tel:+919884517404">+91 9884517404</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">www.cognolux.ai</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Cognolux AI. All rights reserved.</p>
+      <span>Built with AI. Delivered with care.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
